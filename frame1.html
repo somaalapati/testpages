@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iframe</title>
+    <style>
+      :focus {
+        outline: 2px solid #8cc63f !important;
+
+        background-color: #fdf6e7 !important;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+
+        border-collapse: collapse;
+      }
+
+      body {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        color: #222;
+
+        position: relative;
+      }
+
+      .modal {
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        gap: 0.4rem;
+
+        width: 450px;
+
+        padding: 1.3rem;
+
+        min-height: 250px;
+
+        position: absolute;
+
+        z-index: 2;
+
+        top: 20%;
+
+        background-color: white;
+
+        border: 1px solid #ddd;
+
+        border-radius: 15px;
+      }
+
+      .modal .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .modal p {
+        font-size: 0.9rem;
+        color: #777;
+        margin: 0.4rem 0 0.2rem;
+      }
+
+      button {
+        cursor: pointer;
+
+        border: none;
+
+        font-weight: 600;
+      }
+
+      .btn {
+        display: inline-block;
+
+        padding: 0.8rem 1.4rem;
+
+        font-weight: 700;
+
+        background-color: black;
+
+        color: white;
+
+        border-radius: 5px;
+
+        text-align: center;
+        font-size: 1em;
+      }
+
+      .btn-open {
+        margin-top: 30px;
+      }
+
+      .btn-close {
+        padding: 0.5rem 0.7rem;
+        background: #eee;
+        border-radius: 50%;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3px);
+        z-index: 1;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      input {
+        margin-right: 5px;
+      }
+      .dir {
+        list-style-type: none;
+        display: inline-flex;
+        margin: 0.2rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1 style="text-align: center">Axe Extension IFrame test page</h1>
+      <h2>Deprecated Elements</h2>
+      <div>
+        <strong>Source dir:</strong>
+        <p class="dir" role="directory">
+          <span>Home ></span>
+          <span>Folder1 ></span>
+          <span>Folder2</span>
+        </p>
+      </div>
+      <div>
+        <strong>Target dir:</strong>
+        <p class="dir" role="directory">
+          <span>Home ></span>
+          <span>Folder1 ></span>
+          <span>Folder2</span>
+        </p>
+      </div>
+      <h2 class="duplicate heading">Minor Isuues - Duplicate ID Association</h2>
+      <div>
+        <div id="duplicate">1.This is a div</div>
+        <div id="duplicate">2.This is a div with duplicate id</div>
+        <div id="duplicate-1">3.This is another div</div>
+        <div id="duplicate-1">4.This is also a div duplicate id</div>
+      </div>
+      <h2>Forms IGT Test</h2>
+      <h3>Best Practice</h3>
+      <p>Image redundant alt</p>
+      <form>
+        <input type="text" title="search" tabindex="-1" />
+        <input type="submit" title="Search" tabindex="-1" />
+      </form>
+      <h2>Needs Review Type Issue Server side Imagemaps</h2>
+      <p>
+        <strong> Note: </strong>
+        "Select the shape and click"
+      </p>
+      <a href="image1.jpg">
+        <img src="image1.jpg" alt="diagram for Client-Side imagemap" ismap />
+        "Client-Side imagemap"
+      </a>
+
+      <h2>Images IGT & Critical Issues - Image Alt</h2>
+      <div>
+        <img src="image2.jpg" width="100" height="100" />
+
+        <img src="image3.jpg" width="100" height="100" />
+
+        <img src="image4.jpg" width="100" height="100" />
+
+        <img src="image5.jpg" width="100" height="100" alt="blah" />
+      </div>
+      <h2>Serious Issues - Lists</h2>
+      <div id="myList">
+        <dt>Coffee</dt>
+        <dd>Black hot drink</dd>
+        <dt>Milk</dt>
+        <dd>White cold drink</dd>
+      </div>
+      <h2>Table IGT Test</h2>
+      <div>
+        <h3 id="misapplied-header-markup-table" class="title">
+          Misapplied Header Markup
+        </h3>
+
+        <table
+          aria-labelledby="misapplied-header-markup-table"
+          style="border: 1px solid black"
+        >
+          <tbody>
+            <tr>
+              <th>ID</th>
+
+              <th>First Name</th>
+
+              <th>Last Name</th>
+            </tr>
+
+            <tr>
+              <th>1</th>
+
+              <td>Chris</td>
+
+              <td>Alpine</td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+
+              <td>Harry</td>
+
+              <td>Trotter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2>Modal IGT Test</h2>
+      <div class="overlay hidden"></div>
+
+      <button class="btn btn-open" tabindex="-1">Open Modal</button>
+      <section class="modal hidden">
+        <div class="flex">
+          <h3>Stay in touch</h3>
+
+          <button class="btn-close">×</button>
+        </div>
+
+        <div>
+          <p>
+            "This is a dummy newsletter form so don't bother trying to test it.
+            Not that I expect you to, anyways. :)"
+          </p>
+        </div>
+
+        <input type="email" id="email" placeholder="test@demo.com" />
+
+        <button class="btn">Do Something</button>
+      </section>
+    </main>
+    <script>
+      const modal = document.querySelector(".modal");
+      const overlay = document.querySelector(".overlay");
+      const openModalBtn = document.querySelector(".btn-open");
+      const closeModalBtn = document.querySelector(".btn-close");
+
+      const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+      };
+
+      closeModalBtn.addEventListener("click", closeModal);
+      overlay.addEventListener("click", closeModal);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+
+      const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+      };
+
+      openModalBtn.addEventListener("click", openModal);
+    </script>
+  </body>
+</html>
